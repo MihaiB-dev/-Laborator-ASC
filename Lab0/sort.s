@@ -1,4 +1,4 @@
-;# sa se ordoneze crescator sirul
+# sa se ordoneze crescator sirul
 .data
 sir: .long 14, 2, 8, 9, 13
 n: .long 5
@@ -9,38 +9,38 @@ j: .long 0
 .global main
 main:
 ;#
-mov n, %ecx
+xorl %ecx, %ecx
 loop:
-    mov n, %eax
-    sub %ecx, %eax  ;# eax este 0, 1, 2, 3, 4
+      ;# ecx este 0, 1, 2, 3, 4
 
-    cmp $0, %ecx
+    cmp n, %ecx
     je exit
-
-    decl %ecx ;#scadem din ecx 1 ca sa creasca eax
 
     lea sir, %esi
 
-    movl %eax, j
+    movl %ecx, %ebx
     loop_j:
-        incl j
-        movl $5, %ebx
+        incl %ebx
 
-        cmp j, %ebx ;#daca j este 5
-        je loop
+        cmp n, %ebx ;#daca ebx este 5
+        je exit_j
 
-        movl j, %edx
-        movl (%esi, %eax, 4), %eax
-        movl (%esi, %edx, 4), %ebx
+        movl (%esi, %ecx, 4), %eax
+        movl (%esi, %ebx, 4), %edx
 
         
-        cmp %eax, %ebx
+        cmp %eax, %edx
         jge loop_j
 
-        movl %ebx, (%esi, %eax, 4)
-        movl %eax, (%esi, %edx, 4)   ;# swap
+        movl %edx, (%esi, %ecx, 4)
+        movl %eax, (%esi, %ebx, 4)   ;# swap
 
         jmp loop_j 
+    exit_j:
+
+incl %ecx
+jmp loop
+
 
 
 exit:
