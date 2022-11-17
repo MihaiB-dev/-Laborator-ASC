@@ -3,14 +3,13 @@ sir: .space 200
 vocale: .asciz "AEIOUaeiou"
 len: .space 4
 PrintFormat: .asciz " Numarul de vocale este %ld\n"
-
 contor: .long 0
 .text
 
 .global main
 main:
 
-pushl $sir ;# adadugam ce este scris la tastatura in sir
+pushl $sir ;# adadugam ce este scris de la tastatura in sir
 call gets
 popl %ebx
 
