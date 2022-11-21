@@ -1,0 +1,72 @@
+;# cerinta : Se citesc de la tastatura un numar x, un numar n si apoi un vector cu n numere naturale . 
+;# Sa se stocheze in memorie si sa se afiseze pe ecran doar numerele din vector care sunt multiplii de x.
+
+.data
+x: .space 4
+n: .space 4
+a: .space 4
+vector: .space 400
+cit_un_numar: .asciz "%ld"
+fsx: .asciz "Scrieti numarul x : "
+fsn: .asciz "Scrieti cate numere sa aiba vectorul : "
+fsv: .asciz "Scrieti numerele din vector : "
+end_line: .asciz "\n"
+
+.text
+.global main
+main:
+ ;# citim x
+ pushl $fsx
+ call printf
+ popl %ebx
+
+ pushl $x
+ pushl $cit_un_numar
+ call scanf
+ popl %ebx
+ popl %ebx
+
+;# citim n
+ pushl $fsn
+ call printf
+ popl %ebx
+ 
+ pushl $n
+ pushl $cit_un_numar
+ call scanf
+ popl %ebx
+ popl %ebx
+
+ xorl %ecx, %ecx
+ movl vector, %edi
+ 
+ pushl $fsv
+ call printf
+ popl %ebx
+
+ for_citire:
+    cmp n, %ecx
+    je exit_for
+
+    pushl $a
+    pushl $cit_un_numar
+    call scanf
+    popl %ebx
+    popl %ebx
+
+    movl a, %eax
+    movl %eax, (%edi, %ecx, 4)
+    incl %ecx
+    jmp for_citire
+
+exit_for:
+;# pushl $end_line
+;# call printf
+;# popl %ebx
+
+
+
+exit:
+movl $1, %eax
+xorl %ebx, %ebx
+int $0x80
