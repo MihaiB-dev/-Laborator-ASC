@@ -38,7 +38,7 @@ main:
  popl %ebx
 
  xorl %ecx, %ecx
- movl vector, %edi
+ lea vector, %edi
  
  pushl $fsv
  call printf
@@ -47,12 +47,14 @@ main:
  for_citire:
     cmp n, %ecx
     je exit_for
-
+    
+    pusha
     pushl $a
     pushl $cit_un_numar
     call scanf
     popl %ebx
     popl %ebx
+    popa
 
     movl a, %eax
     movl %eax, (%edi, %ecx, 4)
