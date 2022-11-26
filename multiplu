@@ -29,7 +29,7 @@ main:
  call scanf
  popl %ebx
  popl %ebx
-
+ ;# --------
 ;# citim n
 pushl $fsn
 call printf
@@ -40,17 +40,19 @@ pushl $cit_un_numar
 call scanf
 popl %ebx
 popl %ebx
+;# --------
 
 xorl %ecx, %ecx
 lea vector, %edi
 
 pusha
-pushl $fsv
+pushl $fsv #"Scrieti numerele din vector : "
 call printf
 popl %ebx
 popa
 
-for_citire:
+;# for(ecx = 0; ecx<n; ecx++)
+for_citire: 
     cmp n, %ecx
     je exit_for_citire
 
@@ -62,30 +64,33 @@ for_citire:
     popl %ebx
     popa
 
-    movl a, %eax
-    movl %eax, (%edi, %ecx, 4)
+    movl a, %eax #punem numarul in a
+    movl %eax, (%edi, %ecx, 4) #punem numarul a in vactor
     incl %ecx
     jmp for_citire
 exit_for_citire:
 
+;# "Numerele care sunt multipli lui %d din vector sunt : "
 push x
 push $fsr
-call printf
+call printf 
 pop %ebx
 pop %ebx
+;#-----------
 
+;# for(ecx = 0; ecx < n; ecx++)
 xorl %ecx, %ecx
 for:
     cmp n, %ecx
     je verif
-
+    
+    ;# vector[ecx] / x
     xorl %edx,%edx
     movl (%edi,%ecx,4), %eax
-
     movl x, %ebx
     div %ebx
 
-    cmp $0, %edx
+    cmp $0, %edx #daca NU se divide
     jne continue
 
     ;#print the correct numbers
@@ -102,8 +107,9 @@ for:
     continue:
     incl %ecx
     jmp for
-
-verif:
+    
+;#verificam daca exista cel putin un multiplu
+verif: 
     movl ok, %eax
     cmp $1, %eax
     je exit
