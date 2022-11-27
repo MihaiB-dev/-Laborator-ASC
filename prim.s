@@ -1,3 +1,4 @@
+;# sa se verific e daca numarul este prim
 .data
 n: .space 4
 cit: .asciz "%ld"
