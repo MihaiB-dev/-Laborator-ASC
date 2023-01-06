@@ -74,9 +74,7 @@ ret
 main:
 
 push $sir
-call getsScrieti o procedura ce implementeaza functia C atoi:
-int atoi(const char *s);
-care returneaza intregul a carui reprez
+call gets
 push $sir
 call atoi_replica
 pop %ebx
